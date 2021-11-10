@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
@@ -17,11 +17,47 @@ import GuestComments from './components/public-pages/GuestComments';
 import Login from './components/public-pages/Login';
 
 // components
-import Navigation from './components/navigation/Nav';
+import Navigation from './components/public-navigation/Nav';
 
 function App() {
+  const adminUser = {
+    email: "admin@admin.com",
+    password: "admin123"
+  }
+
+  const [user, setUser] = useState({name: "", email: ""});
+  const [error, setError] = useState("");
+
+  const LoginFunction = details => {
+    console.log(details)
+    if (details.email === adminUser.email && details.password === adminUser.password) {
+      console.log("Logged In!");
+      setUser({
+        email: details.email
+      })
+    } else {
+      console.log("Details do not match!")
+      setError("Details do not match!")
+    }
+  }
+
+  const LogoutFunction = () => {
+    setUser({email: ""});
+  }
+
   return (
     <div className="App">
+      {(user.email !== "") ? (
+        <div className="welcome">
+          <Router>
+            {/* Make the Nav Below the Public One! */}
+          <Navigation />
+          </Router>
+          <h2>Welcome, <span>{user.email}</span></h2>
+          <button onClick={LogoutFunction}>Logout</button>
+        </div>
+      ) : 
+        
         <Router>
           <Navigation />
           <Routes>
@@ -36,9 +72,10 @@ function App() {
             <Route path = '/contact-email' exact element={<ContactEmail/>} />
             <Route path = '/contact-volunteer' exact element={<ContactVolunteer/>} />
             <Route path = '/guest-comments' exact element={<GuestComments/>} />
-            <Route path = '/login' exact element={<Login/>} />
+            <Route path = '/login' exact element={<Login LoginFunction={LoginFunction} error={error}/>} />
           </Routes>
         </Router>
+      }
     </div>
   );
 }
