@@ -3,9 +3,7 @@ import React, {useState} from 'react';
 import { Link } from "react-router-dom";
 
 // Components
-import DropdownT from './NavDropdownT';
-import DropdownB from "./NavDropdownB";
-import DropdownC from "./NavDropdownC";
+import LoginButton from './LoginButton'
 
 function Navigation() {
   const [click, setClick] = useState(false);
@@ -23,8 +21,8 @@ function Navigation() {
         <h3 className="logo">Ski<span>Friends</span></h3>
       </Link>
     </div>
-    <div className={click ? 'nav-btn' : 'nav-hidden'}>
-          <div className="nav-links" >
+    <div className='nav-btn'>
+          <div className={click ? "nav-links active" : 'nav-links'} >
             {/* <!-- NAV LIST --> */}
             <ul>
 
@@ -104,6 +102,12 @@ function Navigation() {
                 <Link to='/guest-comments' onClick={closeMobileMenu}>Guest Comments</Link>
               </li>
 
+              <li className="nav-link">
+                <Link to='/login' className='nav-link mobile' onClick={closeMobileMenu}>
+                  Login
+                </Link>
+              </li>
+
           
             </ul>
           </div>
@@ -116,9 +120,10 @@ function Navigation() {
             <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
           </div>
         </div>
-          <div className="log-sign">
+          {/* <div className="log-sign">
             <Link to='/login' onClick={closeMobileMenu}><a href="#" className="btn transparent">Login</a></Link>
-          </div>
+          </div> */}
+          <LoginButton />
     </div>
     </header>
   )
