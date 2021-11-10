@@ -19,7 +19,7 @@ function Navigation() {
     {/* <input type="checkbox" name="" className="check"></input> */}
 
     <div clasName="logo-container">
-      <Link to='/home'>
+      <Link to='/home' onClick={closeMobileMenu}>
         <h3 className="logo">Ski<span>Friends</span></h3>
       </Link>
     </div>
@@ -117,7 +117,7 @@ function Navigation() {
           </div>
         </div>
           <div className="log-sign">
-            <Link to='/login' ><a href="#" className="btn transparent">Login</a></Link>
+            <Link to='/login' onClick={closeMobileMenu}><a href="#" className="btn transparent">Login</a></Link>
           </div>
     </div>
     </header>
